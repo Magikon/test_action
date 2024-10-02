@@ -45,3 +45,6 @@ jobs:
       - name: List Env Variables
         run: env
 
+      - name: Print some variables
+        run: |
+          echo ${{ github.event.repository.name }}
