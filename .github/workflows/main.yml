@@ -50,3 +50,4 @@ jobs:
       - name: Print some variables
         run: |
           echo ${{ github.event.repository.name }}
+          cat $GITHUB_ENV
