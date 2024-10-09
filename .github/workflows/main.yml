@@ -1,13 +1,10 @@
 name: Build and Deploy
 
 on:
-  push:
-    branches:
-      - main
   workflow_dispatch:
     inputs:
-      branch_name:
-        description: 'Branch name (for manual dispatch)'
+      env_name:
+        description: 'Env name to deploy'
         required: true
 
 env:
@@ -20,7 +17,6 @@ env:
 
 jobs:
   build:
-    if: github.ref_name == 'main' || github.event_name == 'workflow_dispatch'
     name: Build and Deploy
     permissions:
       contents: 'read'
@@ -32,12 +28,11 @@ jobs:
       - name: Checkout
         uses: actions/checkout@v4
         with:
-          ref: ${{ github.event_name == 'workflow_dispatch' && github.event.inputs.branch_name || 'main' }}
+          ref: ${{ env.GITHUB_REF }}
 
       - name: Setting build environment
         run: |
-          BRANCH_NAME="${{ github.event.inputs.branch_name || 'main' }}"
-          if [[ "$BRANCH_NAME" == 'main' ]]; then
+          if [[ ${{ github.event.inputs.env_name }} == "prod" ]]; then
             echo "Building Production Backend Image"
             echo "ENVIRONMENT=prod" >> $GITHUB_ENV
             echo "PROJECT_ID=hubtech-dev-246811" >> $GITHUB_ENV
@@ -45,7 +40,9 @@ jobs:
           fi
 
       - name: List Env Variables
-        run: env
+        run: |
+          env
+          cat $GITHUB_ENV
 
       - name: Print some variables
         run: |
