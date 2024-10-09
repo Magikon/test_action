@@ -3,9 +3,17 @@ name: Build and Deploy
 on:
   workflow_dispatch:
     inputs:
-      env_name:
-        description: 'Env name to deploy'
+      environment:
+        type: choice
+        description: 'Which environment to deploy to ?'
+        default: dev
         required: true
+        options:
+          - dev
+          - dev1
+          - dev2
+          - dev3
+          - prod
 
 env:
   PROJECT_ID: engineering-400113
