@@ -3,7 +3,7 @@ name: Build and Deploy
 on:
   workflow_dispatch:
     inputs:
-      environment:
+      env_name:
         type: choice
         description: 'Which environment to deploy to ?'
         default: dev
