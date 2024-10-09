@@ -13,6 +13,7 @@ env:
   ENVIRONMENT: dev
   INSTANCE_IP: 34.123.5.212
   PROJECT_NAME: zerobroker
+  REPO: ${{ github.event.repository.name }}
 
 jobs:
   build:
@@ -43,3 +44,7 @@ jobs:
           env
           cat $GITHUB_ENV
 
+      - name: Print some variables
+        run: |
+          echo ${{ github.event.repository.name }}
+          cat $GITHUB_ENV
