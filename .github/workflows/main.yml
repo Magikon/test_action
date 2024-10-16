@@ -56,3 +56,8 @@ jobs:
         run: |
           echo ${{ github.event.repository.name }}
           cat $GITHUB_ENV
+
+      - name: Rename the workflow run
+        run: |
+          gh run rename $GITHUB_RUN_ID --title "Custom Name for ${{ github.ref }}"
+
