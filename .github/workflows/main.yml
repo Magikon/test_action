@@ -23,6 +23,8 @@ env:
   PROJECT_NAME: zerobroker
   REPO: ${{ github.event.repository.name }}
 
+run-name: "Branch: ${{ github.ref_name }} by @${{ github.actor }}, Env: ${{ github.event.inputs.env_name }}"
+
 jobs:
   build:
     name: "Branch: ${{ github.ref_name }}, Env: ${{ github.event.inputs.env_name }}"
