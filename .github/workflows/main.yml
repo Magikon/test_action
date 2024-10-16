@@ -25,7 +25,7 @@ env:
 
 jobs:
   build:
-    name: Branch ${{ github.ref }}, Env ${{ github.event.inputs.env_name }}
+    name: Branch ${{ github.ref_name }}, Env ${{ github.event.inputs.env_name }}
     permissions:
       contents: 'read'
       id-token: 'write'
