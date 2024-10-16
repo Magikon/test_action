@@ -58,5 +58,5 @@ jobs:
           cat $GITHUB_ENV
 
       - name: Add annotation
-        run: echo "::notice title=Workflow Info::Custom Name for ${{ github.ref }}"
+        run: echo "::notice title=Workflow Info::Branch= ${{ github.ref_name }}, Env= ${{ github.event.inputs.env_name }}"
 
