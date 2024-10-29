@@ -6,11 +6,11 @@ on:
       - '**'
       - '!main'
 
-run-name: "Branch name: ${{ github.ref_name }}, Environment name: ${{ github.short_sha }} run by @${{ github.actor }}"
+run-name: "Branch name: ${{ github.ref_name }}, SHA: ${{ github.sha }} run by @${{ github.actor }}"
 
 jobs:
   build:
-    name: "Branch: ${{ github.ref_name }}, Env: ${{ github.event.inputs.env_name }}"
+    name: "test"
     permissions:
       contents: 'read'
       id-token: 'write'
