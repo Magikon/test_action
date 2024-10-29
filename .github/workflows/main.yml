@@ -3,7 +3,8 @@ name: Build and Deploy
 on:
   push:
     branches:
-      - '!master'
+      - '**'
+      - '!main'
 
 run-name: "Branch name: ${{ github.ref_name }}, Environment name: ${{ github.short_sha }} run by @${{ github.actor }}"
 
