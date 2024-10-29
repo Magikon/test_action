@@ -6,7 +6,7 @@ on:
       - '**'
       - '!main'
 
-run-name: "Branch name: ${{ github.ref_name }}, SHA: ${{ github.sha }} run by @${{ github.actor }}"
+run-name: "Br: ${{ github.ref_name }}, SHA: ${{ github.sha }} run by @${{ github.actor }}"
 
 jobs:
   build:
@@ -20,8 +20,6 @@ jobs:
     steps:
       - name: Checkout
         uses: actions/checkout@v4
-        with:
-          ref: ${{ env.GITHUB_REF }}
 
       - name: Setting build environment
         run: |
