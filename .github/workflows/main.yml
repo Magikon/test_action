@@ -6,11 +6,11 @@ on:
       - '**'
       - '!main'
 
-run-name: "Branch name: ${{ github.ref_name }}, SHA: ${{ github.sha }} run by @${{ github.actor }}"
+run-name: "Br: ${{ github.ref_name }}, SHA: ${{ github.sha }} run by @${{ github.actor }}"
 
 jobs:
   build:
-    name: "Branch: ${{ github.ref_name }}, Env: ${{ github.event.inputs.env_name }}"
+    name: "test"
     permissions:
       contents: 'read'
       id-token: 'write'
@@ -23,7 +23,7 @@ jobs:
 
       - name: Setting build environment
         run: |
-            echo "TAG=${{ github.short_sha }}" >> $GITHUB_ENV
+            echo "TAG=${GITHUB_SHA::7}" >> $GITHUB_ENV
 
       - name: List Env Variables
         run: |
@@ -32,7 +32,7 @@ jobs:
 
       - name: Print some variables
         run: |
-          echo ${{ github.short_sha }}
+          echo ${{ env.TAG }}
           echo ${{ github.sha }}
           cat $GITHUB_ENV
 
