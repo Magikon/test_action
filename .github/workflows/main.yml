@@ -1,29 +1,11 @@
 name: Build and Deploy
 
 on:
-  workflow_dispatch:
-    inputs:
-      env_name:
-        type: choice
-        description: 'Which environment to deploy to ?'
-        default: dev
-        required: true
-        options:
-          - dev
-          - dev1
-          - dev2
-          - dev3
-          - prod
+  push:
+    branches:
+      - '!master'
 
-env:
-  PROJECT_ID: engineering-400113
-  GAR_LOCATION: us-central1
-  ENVIRONMENT: dev
-  INSTANCE_IP: 34.123.5.212
-  PROJECT_NAME: zerobroker
-  REPO: ${{ github.event.repository.name }}
-
-run-name: "Branch name: ${{ github.ref_name }}, Environment name: ${{ github.event.inputs.env_name }} run by @${{ github.actor }}"
+run-name: "Branch name: ${{ github.ref_name }}, Environment name: ${{ github.short_sha }} run by @${{ github.actor }}"
 
 jobs:
   build:
@@ -37,17 +19,10 @@ jobs:
     steps:
       - name: Checkout
         uses: actions/checkout@v4
-        with:
-          ref: ${{ env.GITHUB_REF }}
 
       - name: Setting build environment
         run: |
-          if [[ ${{ github.event.inputs.env_name }} == "prod" ]]; then
-            echo "Building Production Backend Image"
-            echo "ENVIRONMENT=prod" >> $GITHUB_ENV
-            echo "PROJECT_ID=hubtech-dev-246811" >> $GITHUB_ENV
-            echo "INSTANCE_IP=34.31.65.146" >> $GITHUB_ENV
-          fi
+            echo "TAG=${{ github.short_sha }}" >> $GITHUB_ENV
 
       - name: List Env Variables
         run: |
@@ -56,9 +31,7 @@ jobs:
 
       - name: Print some variables
         run: |
-          echo ${{ github.event.repository.name }}
+          echo ${{ github.short_sha }}
+          echo ${{ github.sha }}
           cat $GITHUB_ENV
-
-      - name: Add annotation
-        run: echo "::notice title=Workflow Info::Branch= ${{ github.ref_name }}, Env= ${{ github.event.inputs.env_name }}"
 
